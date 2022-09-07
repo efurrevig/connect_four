@@ -30,6 +30,9 @@ class Board
         @grid[position[0]][position[1]] = player
     end
 
+    def BOARD_FULL?
+        return @grid.any?(Integer)
+    end
 
 end
 

@@ -27,13 +27,30 @@ describe Board do
         end
     end
 
-    context 'player is red and value is 1' do
-        it 'returns position [0][0] as "red"' do
-            board.create_board(4,4)
-            board.change_grid(1, 'red')
-            expect(board.grid[0][0]).to eql('red')
+    describe '#change_grid' do
+        context 'player is red and value is 1' do
+            it 'returns position [0][0] as "red"' do
+                board.create_board(4,4)
+                board.change_grid(1, 'red')
+                expect(board.grid[0][0]).to eql('red')
+            end
         end
     end
+
+    describe '#BOARD_FULL?' do
+        context 'board is full' do
+            it 'returns true' do
+
+            end
+        end
+        context 'board is not full' do
+            it 'returns false' do
+                board.create_board(4,4)
+                expect(board).to not_be_BOARD_FULL?
+            end
+        end
+    end
+
 
 
 
