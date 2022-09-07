@@ -22,6 +22,12 @@ class Board
                 return [index, temp]
             end
         end
+        return ''
+    end
+
+    def change_grid(value, player)
+        position = get_position(value)
+        @grid[position[0]][position[1]] = player
     end
 
 

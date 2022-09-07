@@ -27,6 +27,13 @@ describe Board do
         end
     end
 
+    context 'player is red and value is 1' do
+        it 'returns position [0][0] as "red"' do
+            board.create_board(4,4)
+            board.change_grid(1, 'red')
+            expect(board.grid[0][0]).to eql('red')
+        end
+    end
 
 
 
