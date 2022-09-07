@@ -39,14 +39,22 @@ describe Board do
 
     describe '#BOARD_FULL?' do
         context 'board is full' do
+            before do
+                board.create_board(4,4)
+                x = 1
+                16.times do
+                    board.change_grid(x, 'red')
+                    x += 1
+                end
+            end
             it 'returns true' do
-
+                expect(board.BOARD_FULL?).to eql(true)
             end
         end
         context 'board is not full' do
             it 'returns false' do
                 board.create_board(4,4)
-                expect(board).to not_be_BOARD_FULL?
+                expect(board.BOARD_FULL?).to eql(false)
             end
         end
     end

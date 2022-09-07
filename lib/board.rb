@@ -22,7 +22,6 @@ class Board
                 return [index, temp]
             end
         end
-        return ''
     end
 
     def change_grid(value, player)
@@ -31,11 +30,21 @@ class Board
     end
 
     def BOARD_FULL?
-        return @grid.any?(Integer)
+        @grid.each do |i|
+            if !i.all? {|x| x.is_a?(String)}
+                return false
+            end
+        end
+        return true
     end
 
 end
-
 board = Board.new
-board.create_board(6,7)
+board.create_board(4,4)
+                x = 1
+                16.times do
+                    board.change_grid(x, 'red')
+                    x += 1
+                end
+puts "#{board.BOARD_FULL?}"
 puts "#{board.grid}"
