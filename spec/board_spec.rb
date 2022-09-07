@@ -19,5 +19,15 @@ describe Board do
             expect(board.grid).to eql(expected_array)
         end
     end
+    
+    describe '#get_position' do
+        it 'returns if value is 1' do
+            board.create_board(4,4)
+            expect(board.get_position(1)).to eql([0,0])
+        end
+    end
+
+
+
 
 end
