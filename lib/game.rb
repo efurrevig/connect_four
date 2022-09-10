@@ -7,8 +7,10 @@ class Game
     def initialize
         @board = Board.new()
         @turn = 1
-        @player1 = nil
-        @player2 = nil
+        @player1 = 'red'
+        @player2 = 'blue'
     end
+
+    
 
 end
