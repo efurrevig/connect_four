@@ -10,7 +10,7 @@ class Board
     end
 
     #creates an m x n matrix of n numbers 1 to (m*n)
-    def create_grid(m = 6, n = 7)
+    def create_board(m = 6, n = 7)
         x = 1
         m.times do
             @grid << (x...(x+n)).to_a
@@ -33,6 +33,7 @@ class Board
             end
             puts "\n"
         end
+        puts " 1  2  3  4  5  6  7 "
     end
 
     #returns [x, y] array,  grid[x][y] == value
@@ -73,12 +74,12 @@ class Board
     end
 
 end
-board = Board.new
-board.create_grid
-board.change_grid(6, 'red')
-board.change_grid(6, 'red')
-board.change_grid(6, 'red')
-board.print_board
+# board = Board.new
+# board.create_grid
+# board.change_grid(6, 'red')
+# board.change_grid(6, 'red')
+# board.change_grid(6, 'red')
+# board.print_board
 # board.player_input(6, 'red')
 # board.print_board
 
