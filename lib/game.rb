@@ -21,7 +21,7 @@ class Game
             value = gets.chomp.to_i
         end
         @board.change_grid(value, @active)
-        if @active == @player1
+        if @active == @player1 
             @active = @player2
         else 
             @active = @player1

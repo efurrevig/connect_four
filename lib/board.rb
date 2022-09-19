@@ -37,19 +37,24 @@ class Board
     end
 
     #returns [x, y] array,  grid[x][y] == value
+    # def get_position(value)
+    #     @grid.each_with_index do |i, index|
+    #         temp = i.find_index(value)
+    #         if !temp.nil?
+    #             return [index, temp]
+    #         end
+    #     end
+    # end
+
     def get_position(value)
-        @grid.each_with_index do |i, index|
-            temp = i.find_index(value)
-            if !temp.nil?
-                return [index, temp]
+        x = 5
+        while x >= 0
+            if @grid[x][value-1].is_a?(Integer)
+                return [x, value-1]
             end
+            x -= 1
         end
     end
-
-    # def change_grid(value, player)
-    #     position = get_position(value)
-    #     @grid[position[0]][position[1]] = player
-    # end
 
     #takes value 1 to 7 && player, changes first int found in that row to player color
     def change_grid(value, player)
@@ -73,6 +78,37 @@ class Board
         return true
     end
 
+
+    #put starting position into stack
+    #while !stack empty, iterate
+    #iterate through move, find (moves) consecutive pieces next to starting position
+    ##assign direction to valid move
+    ##add new position to queue with direction
+    def GAME_WIN?(value, player)
+        move = [1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]
+        direction = nil
+        r, c = get_position(value) 
+        stack = []
+
+        #start << [r,c]
+
+        move.each do |i|
+            puts "#{@grid[r][c]}"
+            if r+i[0] > 5 || r+i[0] < 0 || c+i[1] > 6 || c+i[1] < 0
+                next
+            end
+                
+            if @grid[r + i[0]][c + i[1]] == player
+                puts "#{[[r + i[0]],[c + i[1]]]}"
+                stack << i
+            end
+        end
+
+        print stack
+        
+
+    end
+
 end
 # board = Board.new
 # board.create_grid
@@ -85,3 +121,10 @@ end
 
 # U+25EF  - large circle
 # 
+
+
+
+    # def change_grid(value, player)
+    #     position = get_position(value)
+    #     @grid[position[0]][position[1]] = player
+    # end
