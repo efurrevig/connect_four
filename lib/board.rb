@@ -3,7 +3,7 @@ class Board
     attr_reader :grid, :empty, :red, :blue
 
     def initialize
-        @grid = []
+        @grid = create_board
         @empty = "\u273a"
         @red = "\e[31m#{"\u273a"}\e[0m"
         @blue = "\e[34m#{"\u273a"}\e[0m"
@@ -11,11 +11,13 @@ class Board
 
     #creates an m x n matrix of n numbers 1 to (m*n)
     def create_board(m = 6, n = 7)
+        arr = []
         x = 1
         m.times do
-            @grid << (x...(x+n)).to_a
+            arr << (x...(x+n)).to_a
             x += n
         end
+        return arr
     end
 
     #prints white circle if open, red/blue if occupied by a piece
@@ -80,32 +82,17 @@ class Board
 
 
     def GAME_WIN?(value, player)
-        r, c = get_position(value) 
-        change_grid(value, player)
-        
-        if check_horizontal([r,c], player) == true || check_vertical([r,c], player) == true || check_vertical_left([r,c], player) == true || check_vertical_right([r,c], player) == true
-            puts "win"
-            return true
-        else
-            puts "lose"
+        if value == nil || player == nil
             return false
         end
-        #start << [r,c]
-
-        # move.each do |i|
-        #     puts "#{@grid[r][c]}"
-        #     if r+i[0] > 5 || r+i[0] < 0 || c+i[1] > 6 || c+i[1] < 0
-        #         next
-        #     end
-                
-        #     if @grid[r + i[0]][c + i[1]] == player
-        #         puts "#{[[r + i[0]],[c + i[1]]]}"
-        #         stack << i
-        #     end
-        # end
-
-        # print stack
+        # r, c = get_position(value) 
+        # change_grid(value, player)
         
+        if check_horizontal(value, player) == true || check_vertical(value, player) == true || check_vertical_left(value, player) == true || check_vertical_right(value, player) == true
+            return true
+        else
+            return false
+        end
 
     end
 
@@ -155,7 +142,6 @@ class Board
             end
             c += move[1][1]
         end
-        puts "#{count}"
         if count >= 4
             return true
         else
