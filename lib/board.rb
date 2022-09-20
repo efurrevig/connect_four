@@ -79,52 +79,147 @@ class Board
     end
 
 
-    #put starting position into stack
-    #while !stack empty, iterate
-    #iterate through move, find (moves) consecutive pieces next to starting position
-    ##assign direction to valid move
-    ##add new position to queue with direction
     def GAME_WIN?(value, player)
-        move = [1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]
-        direction = nil
         r, c = get_position(value) 
-        stack = []
-
+        change_grid(value, player)
+        
+        if check_horizontal([r,c], player) == true || check_vertical([r,c], player) == true || check_vertical_left([r,c], player) == true || check_vertical_right([r,c], player) == true
+            puts "win"
+            return true
+        else
+            puts "lose"
+            return false
+        end
         #start << [r,c]
 
-        move.each do |i|
-            puts "#{@grid[r][c]}"
-            if r+i[0] > 5 || r+i[0] < 0 || c+i[1] > 6 || c+i[1] < 0
-                next
-            end
+        # move.each do |i|
+        #     puts "#{@grid[r][c]}"
+        #     if r+i[0] > 5 || r+i[0] < 0 || c+i[1] > 6 || c+i[1] < 0
+        #         next
+        #     end
                 
-            if @grid[r + i[0]][c + i[1]] == player
-                puts "#{[[r + i[0]],[c + i[1]]]}"
-                stack << i
-            end
-        end
+        #     if @grid[r + i[0]][c + i[1]] == player
+        #         puts "#{[[r + i[0]],[c + i[1]]]}"
+        #         stack << i
+        #     end
+        # end
 
-        print stack
+        # print stack
         
 
     end
 
+    def check_vertical(value, player)
+        move = [1,0],[-1,0]
+        r,c = value
+        count = -1
+        while @grid[r][c] == player
+            count += 1
+            if r+move[0][0] > 5 || r+move[0][0] < 0
+                break
+            end
+            r += move[0][0]
+        end
+        r,c = value
+        while @grid[r][c] == player
+            count += 1
+            if r+move[1][0] > 5 || r+move[1][0] < 0
+                break
+            end
+            r += move[1][0]
+        end
+        if count >= 4
+            return true
+        else
+            return false
+        end
+    end
+
+    ###
+    def check_horizontal(value, player)
+        move = [[0,1],[0,-1]]
+        r, c = value
+        count = -1
+        while @grid[r][c] == player
+            count += 1
+            if c+move[0][1] > 6 || c+move[0][1] < 0
+                break
+            end
+            c += move[0][1]
+        end
+        r,c = value
+        while @grid[r][c] == player
+            count += 1
+            if c+move[1][1] > 6 || c+move[1][1] < 0
+                break
+            end
+            c += move[1][1]
+        end
+        puts "#{count}"
+        if count >= 4
+            return true
+        else
+            return false
+        end
+    end
+
+    ###
+    def check_vertical_left(value, player)
+        move = [-1,-1],[1,1]
+        r, c = value
+        count = -1
+        while @grid[r][c] == player
+            count += 1
+            if r+move[0][0] > 5 || r+move[0][0] < 0 ||c+move[0][1] > 6 || c+move[0][1] < 0
+                break
+            end
+            c += move[0][1]
+            r += move[0][0]
+        end
+        r, c = value
+        while @grid[r][c] == player
+            count += 1
+            if r+move[1][0] > 5 || r+move[1][0] < 0 ||c+move[1][1] > 6 || c+move[1][1] < 0
+                break
+            end
+            c += move[1][1]
+            r += move[1][0]
+        end
+        if count >= 4
+            return true
+        else
+            return false
+        end
+    end
+
+
+    ### move = [1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]
+    def check_vertical_right(value, player)
+        move = [1,-1],[-1,1]
+        r, c = value
+        count = -1
+        while @grid[r][c] == player
+            count += 1
+            if r+move[0][0] > 5 || r+move[0][0] < 0 ||c+move[0][1] > 6 || c+move[0][1] < 0
+                break
+            end
+            c += move[0][1]
+            r += move[0][0]
+        end
+        r, c = value
+        while @grid[r][c] == player
+            count += 1
+            if r+move[1][0] > 5 || r+move[1][0] < 0 ||c+move[1][1] > 6 || c+move[1][1] < 0
+                break
+            end
+            c += move[1][1]
+            r += move[1][0]
+        end
+        if count >= 4
+            return true
+        else
+            return false
+        end
+    end
+
 end
-# board = Board.new
-# board.create_grid
-# board.change_grid(6, 'red')
-# board.change_grid(6, 'red')
-# board.change_grid(6, 'red')
-# board.print_board
-# board.player_input(6, 'red')
-# board.print_board
-
-# U+25EF  - large circle
-# 
-
-
-
-    # def change_grid(value, player)
-    #     position = get_position(value)
-    #     @grid[position[0]][position[1]] = player
-    # end
